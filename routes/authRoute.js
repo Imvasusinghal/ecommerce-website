@@ -1,5 +1,5 @@
 import express from "express";
-import { registerController } from "../controllers/authController.js";
+import { registerController, loginController } from "../controllers/authController.js";
 
 //CREATING ROUTER OBJECT
 const router = express.Router();
@@ -8,4 +8,6 @@ const router = express.Router();
 //REGIDTER || METHOD POST
 router.post("/register", registerController);
 
+//LOGIN || POST
+router.post('/login', loginController);
 export default router;

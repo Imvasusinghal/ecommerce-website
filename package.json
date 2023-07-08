@@ -19,6 +19,7 @@
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.3.1",
     "morgan": "^1.10.0",
-    "nodemon": "^1.14.9"
+    "nodemon": "^1.14.9",
+    "react-icons": "^4.10.1"
   }
 }

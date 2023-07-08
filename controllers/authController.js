@@ -82,7 +82,7 @@ export const loginController = async(req,res) => {
         //HERE DECRYPTING THE PASSWORD AND COMPARING IF IT'S THE RIGHT PASSWORD OR NOT
         const match = await comparePassword(password, user.password)
         if(!match){
-            return res.status(200)({
+            return res.status(200).send({
                 success:false,
                 message:"Invalid Password",
             });
@@ -96,14 +96,15 @@ export const loginController = async(req,res) => {
             success:true,
             message:"Login successfully",       
             user:{
-                name:user.name,             //HERE WE'RE SHOWING THE USER THESE DETAILS AFTER SUCCCESSFUL LOGIN
-                email:user.email,
-                phone:user.phone,
-                address:user.address
+                name: user.name,             //HERE WE'RE SHOWING THE USER THESE DETAILS AFTER SUCCCESSFUL LOGIN
+                email: user.email,
+                phone: user.phone,
+                address: user.address,
+                role: user.role,
             },
             token,
         });
-    }catch(error){
+    } catch(error){
         console.log(error);
         res.status(500).send({
             success:false,
@@ -111,4 +112,10 @@ export const loginController = async(req,res) => {
             error,
         });
     }
+};
+
+//TEST CONTROLLER
+export const testController= (req,res) => {
+    // console.log("protexted Route");
+    res.send("Protected routes");
 };

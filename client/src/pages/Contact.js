@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../components/layout/layout'
 import { BiMailSend, BiPhoneCall, BiSupport} from "react-icons/bi";
 
-const contact = () => {
+const Contact = () => {
   return (
     <Layout title={"Contact us"}>
     <div className="row contactus ">
@@ -34,4 +34,4 @@ const contact = () => {
   );
 };
 
-export default contact
+export default Contact;

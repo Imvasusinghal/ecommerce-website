@@ -171,7 +171,7 @@ const Register = () => {
               onChange={(e) => setAnswer(e.target.value)}
               className="form-control"
               id="exampleInputAnswer1"
-              placeholder="What is Your Favorite sports"
+              placeholder="Name of your first school?"
               required
             />
           </div>

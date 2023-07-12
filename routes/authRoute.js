@@ -23,8 +23,13 @@ router.post('/forgot-password', forgotPasswordController)
 //TEST ROUTES
 router.get("/test", requireSignIn, isAdmin, testController);      //CAN CREATE ANY NUMBER OF MIDDLE WARE BETWEEN TEST AND CONTROLLER
 
-//PROTECTED ROUTE AUTH
+//PROTECTED USER ROUTE AUTH
 router.get('/user-auth', requireSignIn, (req,res) => {
+    res.status(200).send({ ok: true});
+});
+
+//PROTECTED ADMIN ROUTE AUTH
+router.get('/admin-auth', requireSignIn, isAdmin, (req,res) => {
     res.status(200).send({ ok: true});
 });
 

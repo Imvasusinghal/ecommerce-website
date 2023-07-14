@@ -1,6 +1,7 @@
 import slugify from "slugify";
 import productModel from "../models/productModel.js";
 import fs from 'fs';
+import categoryModel from "../models/categoryModel.js"
 
 
 export const createProductController = async(req, res) => {
@@ -183,3 +184,92 @@ export const getProductController = async (req, res) => {
       });
     }
   };
+
+  //FILTERS
+  export const productFiltersController= async (req,res)=> {
+    try{
+      const {checked, ratio}=  req.body
+      let args= {
+
+      }
+      if(checked.length>0) args.category= checked       //IN FILTER IT CAN BE POSSIBLE IF HE HAS CHOOSEN ONLY PRICE OR CATEGORY FILTER OR BOTH
+      if(radio.length) args.price= {$gte: radio[0], $lte: radio[1]}
+      const products= await productModel.find(args);
+      res.status(200).send({
+        success:true,
+        products,
+      });
+    }catch(error){
+      console.log(error);
+      res.status(400).send({
+        success:false,
+        message: "Error while filtering products",
+        error
+      });
+    }
+  };
+
+  //PRODUCT COUNT
+export const productCountController = async (req, res) => {
+  try {
+    const total = await productModel.find({}).estimatedDocumentCount();
+    res.status(200).send({
+      success: true,
+      total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      message: "Error in product count",
+      error,
+      success: false,
+    });
+  }
+};
+
+// PRODUCT LIST ON BASIS OF PAGE
+export const productListController = async (req, res) => {
+  try {
+    const perPage = 6;
+    const page = req.params.page ? req.params.page : 1;
+    const products = await productModel
+      .find({})
+      .select("-photo")
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in per page",
+      error,
+    });
+  }
+};
+
+//SEARCH PRODUCT
+export const searchProductController= async(req,res)=> {
+  try{
+    const {keyword}= req.params;
+    const results= await productModel.find({
+      $or:[                                         //HERE WE ARE SEARCHING THAT WORD IN BOTH NAME AND DESCRIPTION
+        {name: {$regex: keyword, $options: "i"}},    //'i' IS USED TO MAKE IT CASE INSENSITIVE
+        {description: {$regex: keyword, $options: "i"}},
+      ],
+    })
+    .select("-photo");
+    res.json(results);
+  }catch(error){
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in Search Product API",
+      error,
+    });
+  }
+};

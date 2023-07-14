@@ -7,12 +7,12 @@ import {
   getProductController,
   getSingleProductController,
 //   productCategoryController,
-//   productCountController,
-//   productFiltersController,
-//   productListController,
+  productCountController,
+  productFiltersController,
+  productListController,
   productPhotoController,
 //   realtedProductController,
-//   searchProductController,
+  searchProductController,
   updateProductController,
 } from "../controllers/productController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
@@ -49,17 +49,17 @@ router.get("/product-photo/:pid", productPhotoController);
 //DELETE PRODUCT
 router.delete("/delete-product/:pid", deleteProductController);
 
-// //filter product
-// router.post("/product-filters", productFiltersController);
+//filter product
+router.post("/product-filters", productFiltersController);
 
-// //product count
-// router.get("/product-count", productCountController);
+//PRODUCT COUNT
+router.get("/product-count", productCountController);
 
-// //product per page
-// router.get("/product-list/:page", productListController);
+//PRODUCT PER PAGE
+router.get("/product-list/:page", productListController);
 
-// //search product
-// router.get("/search/:keyword", searchProductController);
+//search product
+router.get("/search/:keyword", searchProductController);
 
 // //similar product
 // router.get("/related-product/:pid/:cid", realtedProductController);

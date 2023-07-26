@@ -6,6 +6,7 @@ import {
     forgotPasswordController,
 } from "../controllers/authController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
+import { updateProfileController } from './../controllers/authController.js';
 
 //CREATING ROUTER OBJECT
 const router = express.Router();
@@ -32,5 +33,8 @@ router.get('/user-auth', requireSignIn, (req,res) => {
 router.get('/admin-auth', requireSignIn, isAdmin, (req,res) => {
     res.status(200).send({ ok: true});
 });
+
+//UPDATE PROFILE
+router.put("/profile", requireSignIn, updateProfileController);
 
 export default router;
